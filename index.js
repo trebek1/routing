@@ -54,6 +54,16 @@ app.post('/users/new', function(req,res){
 
 });
 
+
+
+app.get('/users/:id/edit', function(req,res) {
+  var mateId = req.params.id;
+  db.User.findById(mateId)
+              .then(function(buddy) {
+                res.render('edit', {mate: buddy,id: mateId});
+              });
+});
+
 app.get('/users/:id', function(req,res){
 	var userId = req.params.id; 
 	db.User.findById(userId).then(function(taco){
@@ -63,9 +73,10 @@ app.get('/users/:id', function(req,res){
 
 app.put('/users/:id', function(req,res) {
   var mateId = req.params.id;
-  var name = req.body.first_name;
+  var first_name = req.body.first_name;
+  var last_name = req.body.last_name;
   var age = req.body.age;
-  db.Classmate.find(mateId)
+  db.User.findById(mateId)
               .then(function(mate){
                 mate.updateAttributes({
                   first_name: first_name,
@@ -76,6 +87,8 @@ app.put('/users/:id', function(req,res) {
                 });
               });
 });
+
+
 
 app.delete('/users/:id', function(req,res){
 	var userId = req.params.id; 
