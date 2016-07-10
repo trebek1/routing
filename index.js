@@ -83,7 +83,7 @@ app.delete('/users/:id', function(req,res){
 		taco.destroy();
 	}).then(function(taco){
 		res.redirect('/users');
-	})	
+	});	
 });
 
 
